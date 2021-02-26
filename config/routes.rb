@@ -7,5 +7,8 @@ Rails.application.routes.draw do
     post "/users" => "users#create"
     patch "/users/:id" => "users#update"
     delete "/users/:id" => "users#destroy"
+
+    get "/dishes/:id" => "dishes#show"
+    post "/dishes" => "dishes#create"
   end
 end
