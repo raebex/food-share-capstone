@@ -1,4 +1,15 @@
 class Api::UsersController < ApplicationController
+  def index
+    @users = User.where(chef: true)
+
+    render "index.json.jb"
+  end
+
+  def show
+    @user = User.find(params[:id])
+
+    render "show.json.jb"
+  end
 
   def create
     user = User.new(
