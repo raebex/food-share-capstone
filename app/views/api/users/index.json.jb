@@ -1,3 +1,16 @@
 @users.map do |user|
-  render partial: "user.json.jb", locals: { user: user }
+  json = render partial: "user.json.jb", locals: { user: user }
+
+  json[:cuisines] = user.cuisines.map do |cuisine|
+    render partial: "api/cuisines/cuisine.json.jb", locals: { cuisine: cuisine }
+  end
+
+  featured_dish = user.dishes.find_by(featured: true) || user.dishes.first
+  json[:featured_dish] = render partial: "api/dishes/dish.json.jb", locals: { dish: featured_dish }
+
+  json[:preorder_hours] = user.preorder_hours.map do |preorder_hour|
+    render partial: "api/preorder_hours/preorder_hour.json.jb", locals: { preorder_hour: preorder_hour }
+  end
+
+  json
 end

@@ -1,0 +1,5 @@
+{
+  day_of_week: preorder_hour.day_of_week,
+  open: preorder_hour.open,
+  close: preorder_hour.close
+}

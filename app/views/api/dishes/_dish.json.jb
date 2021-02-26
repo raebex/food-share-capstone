@@ -1,0 +1,9 @@
+{
+  id: dish.id,
+  name: dish.name,
+  price: dish.price,
+  description: dish.description,
+  image_url: dish.image_url,
+  portion_size: dish.portion_size,
+  featured: dish.featured
+}

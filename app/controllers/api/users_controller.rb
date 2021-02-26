@@ -1,7 +1,6 @@
 class Api::UsersController < ApplicationController
   def index
-    @users = User.where(chef: true)
-
+    @users = User.where("chef = ?", true).joins(:dishes).distinct
     render "index.json.jb"
   end
 
