@@ -1,13 +1,17 @@
 class Api::UsersController < ApplicationController
   def index
-    @users = User.where("chef = ?", true).joins(:dishes).distinct
+    @users = User.where(chef: true).joins(:dishes).distinct
     render "index.json.jb"
   end
 
   def show
     @user = User.find(params[:id])
 
-    render "show.json.jb"
+    if @user.chef || @user == current_user
+      render "show.json.jb"
+    else
+      render json: { message: "You're not allowed to see this page" }, status: :unauthorized
+    end
   end
 
   def create
