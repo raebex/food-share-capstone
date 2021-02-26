@@ -110,3 +110,152 @@
 #     cuisine_id: 2
 #   }
 # ])
+
+# PreorderHour.create([
+#   {
+#     day_of_week: "Friday",
+#     open: "15:00:00",
+#     close: "22:00:00",
+#     user_id: 2
+#   },
+#   {
+#     day_of_week: "Saturday",
+#     open: "11:00:00",
+#     close: "21:00:00",
+#     user_id: 2
+#   },
+#   {
+#     day_of_week: "Sunday",
+#     open: "12:00:00",
+#     close: "20:00:00",
+#     user_id: 2
+#   },
+#   {
+#     day_of_week: "Wednesday",
+#     open: "15:00:00",
+#     close: "22:00:00",
+#     user_id: 1
+#   },
+#   {
+#     day_of_week: "Thursday",
+#     open: "15:00:00",
+#     close: "22:00:00",
+#     user_id: 1
+#   }
+# ])
+
+# CartedDish.create([
+#   {
+#     dish_id: 1,
+#     quantity: 2,
+#     status: "carted",
+#     order_id: nil,
+#     user_id: 3,
+#   },
+#   {
+#     dish_id: 2,
+#     quantity: 2,
+#     status: "carted",
+#     order_id: nil,
+#     user_id: 3,
+#   },
+#   {
+#     dish_id: 1,
+#     quantity: 1,
+#     status: "removed",
+#     order_id: nil,
+#     user_id: 3,
+#   },
+#   {
+#     dish_id: 3,
+#     quantity: 1,
+#     status: "carted",
+#     order_id: nil,
+#     user_id: 4,
+#   },
+#   {
+#     dish_id: 4,
+#     quantity: 1,
+#     status: "carted",
+#     order_id: nil,
+#     user_id: 4,
+#   },
+#   {
+#     dish_id: 4,
+#     quantity: 1,
+#     status: "removed",
+#     order_id: nil,
+#     user_id: 4,
+#   },
+#   {
+#     dish_id: 4,
+#     quantity: 1,
+#     status: "purchased",
+#     order_id: 4,
+#     user_id: 3,
+#   },
+#   {
+#     dish_id: 2,
+#     quantity: 10,
+#     status: "purchased",
+#     order_id: 5,
+#     user_id: 4,
+#   },
+#   {
+#     dish_id: 2,
+#     quantity: 2,
+#     status: "purchased",
+#     order_id: 2,
+#     user_id: 3,
+#   },
+#   {
+#     dish_id: 3,
+#     quantity: 5,
+#     status: "purchased",
+#     order_id: 3,
+#     user_id: 3,
+#   }
+# ])
+
+# Order.create([
+#   {
+#     user_id: 3,
+#     subtotal: 64.03,
+#     delivery: true,
+#     ready_time: "2021-02-24 17:45:00",
+#     status: "delivered",
+#     chef_id: 2
+#   },
+#   {
+#     user_id: 3,
+#     subtotal: 5.15,
+#     delivery: true,
+#     ready_time: "2021-02-20 19:30:00",
+#     status: "delivered",
+#     chef_id: 2
+#   },
+#   {
+#     user_id: 3,
+#     subtotal: 15.76,
+#     delivery: false,
+#     ready_time: "2021-02-25 20:00:00",
+#     status: "picked up",
+#     chef_id: 1
+#   },
+#   {
+#     user_id: 4,
+#     subtotal: 20.43,
+#     delivery: true,
+#     ready_time: "2021-02-24 17:45:00",
+#     status: "delivered",
+#     chef_id: 1
+#   },
+#   {
+#     user_id: 4,
+#     subtotal: 48.72,
+#     delivery: false,
+#     ready_time: "2021-02-21 15:45:00",
+#     status: "picked up",
+#     chef_id: 2
+#   }
+# ])
