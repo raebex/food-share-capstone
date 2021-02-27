@@ -14,5 +14,13 @@ Rails.application.routes.draw do
     delete "/dishes/:id" => "dishes#destroy"
 
     get "/cuisines" => "cuisines#index"
+
+    post "/preorder_hours" => "preorder_hours#create"
+    delete "/preorder_hours/:id" => "preorder_hours#destroy"
+
+    get "/carted_dishes" => "carted_dishes#index"
+    post "/carted_dishes" => "carted_dishes#create"
+    patch "/carted_dishes/:id" => "carted_dishes#update"
+    delete "/carted_dishes/:id" => "carted_dishes#destroy"
   end
 end
