@@ -66,9 +66,7 @@ class Api::UsersController < ApplicationController
       user = User.find(params[:id])
       user.destroy
 
-      render json: {
-        message: "Successfully deleted user!"
-      }
+      render json: { message: "Successfully deleted user!" }
     else
       render json: {}, status: :unauthorized
     end
