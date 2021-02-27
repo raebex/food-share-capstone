@@ -1,0 +1,3 @@
+@cuisines.map do |cuisine|
+  render partial: "cuisine.json.jb", locals: { cuisine: cuisine }
+end
