@@ -5,5 +5,6 @@
   description: dish.description,
   image_url: dish.image_url,
   portion_size: dish.portion_size,
-  featured: dish.featured
+  featured: dish.featured,
+  chef_id: dish.user_id
 }

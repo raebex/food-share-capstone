@@ -37,7 +37,7 @@ class Api::DishesController < ApplicationController
     if @dish.save
       render "show.json.jb"
     else
-      render json: { errors: dish.errors.full_messages }, status: :bad_request
+      render json: { errors: @dish.errors.full_messages }, status: :bad_request
     end
   end
 

@@ -1,0 +1,24 @@
+# @orders.map do |order|
+#   render partial: "order.json.jb", locals: { order: order }
+# end
+
+# @tickets.map do |ticket|
+#   render partial: "order.json.jb", locals: { order: ticket }
+# end
+
+formatted = {}
+
+formatted[:orders] = @orders.map do |order|
+  json = render partial: "order_ticket.json.jb", locals: { order_ticket: order }
+  json[:chef] = render partial: "api/users/user.json.jb", locals: { user: User.find_by(id: order.chef_id) }
+  json
+end
+
+formatted[:tickets] = @tickets.map do |ticket|
+  json = render partial: "order_ticket.json.jb", locals: { order_ticket: ticket }
+  json[:patron] = render partial: "api/users/user.json.jb", locals: { user: User.find_by(id: ticket.user_id) }
+
+  json
+end
+
+formatted
