@@ -1,4 +1,4 @@
-{
+json = {
   id: order.id,
   subtotal: order.subtotal,
   tax: order.tax,
@@ -8,3 +8,8 @@
   created_at: order.created_at,
   ready_time: order.ready_time
 }
+
+json[:chef] = render partial: "api/users/user.json.jb", locals: { user: User.find_by(id: order.chef_id) }
+json[:patron] = render partial: "api/users/user.json.jb", locals: { user: User.find_by(id: order.user_id) }
+
+json

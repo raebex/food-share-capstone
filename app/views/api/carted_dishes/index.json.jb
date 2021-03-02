@@ -1,8 +1,3 @@
 @carted_dishes.map do |carted_dish|
-  json = {}
-  json[:dish] = render partial: "api/dishes/dish.json.jb", locals: { dish: carted_dish.dish }
-  json[:quantity] = carted_dish.quantity
-  json[:subtotal] = carted_dish.dish.price * carted_dish.quantity
-
-  json
+  render partial: "api/carted_dishes/carted_dish.json.jb", locals: { carted_dish: carted_dish }
 end

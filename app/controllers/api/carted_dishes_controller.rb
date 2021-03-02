@@ -8,28 +8,28 @@ class Api::CartedDishesController < ApplicationController
   end
 
   def create
-    carted_dish = CartedDish.new(
+    @carted_dish = CartedDish.new(
       dish_id: params[:dish_id],
       quantity: params[:quantity],
       status: "carted",
       user_id: current_user.id
     )
 
-    if carted_dish.save
-      render json: { message: "Dish added to cart!" }, status: :created
+    if @carted_dish.save
+      render "show.json.jb"
     else
-      render json: { errors: carted_dish.errors.full_messages }, status: :bad_request
+      render json: { errors: @carted_dish.errors.full_messages }, status: :bad_request
     end
   end
 
   def update
-    carted_dish = CartedDish.find(params[:id])
-    carted_dish.quantity = params[:quantity] || carted_dish.quantity
+    @carted_dish = CartedDish.find(params[:id])
+    @carted_dish.quantity = params[:quantity] || @carted_dish.quantity
 
-    if carted_dish.save
-      render json: { message: "Dish quantity updated!" }
+    if @carted_dish.save
+      render "show.json.jb"
     else
-      render json: { errors: dish.errors.full_messages }, status: :bad_request
+      render json: { errors: @carted_dish.errors.full_messages }, status: :bad_request
     end
   end
 

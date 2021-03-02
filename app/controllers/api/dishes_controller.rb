@@ -8,7 +8,7 @@ class Api::DishesController < ApplicationController
   end
 
   def create
-    dish = Dish.new(
+    @dish = Dish.new(
       name: params[:name],
       price: params[:price],
       description: params[:description],
@@ -18,10 +18,10 @@ class Api::DishesController < ApplicationController
       featured: params[:featured]
     )
 
-    if dish.save
-      render json: { message: "Dish created successfully" }, status: :created
+    if @dish.save
+      render "show.json.jb"
     else
-      render json: { errors: dish.errors.full_messages }, status: :bad_request
+      render json: { errors: @dish.errors.full_messages }, status: :bad_request
     end
   end
 

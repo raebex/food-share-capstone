@@ -1,0 +1,1 @@
+render partial: "api/carted_dishes/carted_dish.json.jb", locals: { carted_dish: @carted_dish }
