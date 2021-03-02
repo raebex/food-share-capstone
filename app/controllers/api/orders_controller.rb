@@ -33,7 +33,7 @@ class Api::OrdersController < ApplicationController
         carted_dish.update(status: "purchased")
       end
 
-      render "show_order.json.jb"
+      render "show.json.jb"
     else
       render json: { errors: @order.errors.full_messages }, status: :bad_request
     end
