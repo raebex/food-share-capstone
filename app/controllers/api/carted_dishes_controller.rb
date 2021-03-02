@@ -35,7 +35,7 @@ class Api::CartedDishesController < ApplicationController
 
   def destroy
     carted_dish = CartedDish.find(params[:id])
-    carted_dish.destroy
+    carted_dish.update(status: "removed")
 
     render json: { message: "Dish removed from cart!" }
   end

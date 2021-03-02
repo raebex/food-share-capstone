@@ -1,0 +1,10 @@
+{
+  id: order.id,
+  subtotal: order.subtotal,
+  tax: order.tax,
+  total: order.total,
+  delivery: order.delivery,
+  status: order.status,
+  created_at: order.created_at,
+  ready_time: order.ready_time
+}
