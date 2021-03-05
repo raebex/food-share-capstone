@@ -52,6 +52,9 @@ class Api::UsersController < ApplicationController
       @user.bio = params[:bio] || @user.bio
 
       if @user.save
+        update_cuisines if params[:cuisine_ids]
+        update_preorder_hours if params[:preorder_hours]
+
         render "show.json.jb"
       else
         render json: {errors: @user.errors.full_messages}, status: :unprocessable_entity
@@ -71,6 +74,28 @@ class Api::UsersController < ApplicationController
       render json: { message: "Successfully deleted user!" }
     else
       render json: {}, status: :unauthorized
+    end
+  end
+
+  private
+
+  def update_cuisines
+    @user.cuisines.destroy_all
+    eval(params[:cuisine_ids]).each do |cuisine_id|
+      UserCuisine.create(user_id: @user.id, cuisine_id: cuisine_id)
+    end
+  end
+
+  def update_preorder_hours
+    @user.preorder_hours.destroy_all
+
+    eval(params[:preorder_hours]).each do |preorder_hour|
+      PreorderHour.create(
+        day_of_week: preorder_hour[:day_of_week],
+        open: preorder_hour[:open],
+        close: preorder_hour[:close],
+        user_id: @user.id,
+      )
     end
   end
 end
