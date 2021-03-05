@@ -8,13 +8,19 @@ class Api::CartedDishesController < ApplicationController
   end
 
   def create
-    # existing = CartedDish.find(params[:dish_id])
-    @carted_dish = CartedDish.new(
-      dish_id: params[:dish_id],
-      quantity: params[:quantity],
-      status: "carted",
-      user_id: current_user.id
-    )
+    carted_dishes = current_user.carted_dishes.where(status: "carted")
+
+    if carted_dishes.find_by(dish_id: params[:dish_id])
+      @carted_dish = carted_dishes.find_by(dish_id: params[:dish_id])
+      @carted_dish.update(quantity: @carted_dish.quantity + 1)
+    else
+      @carted_dish = CartedDish.new(
+        dish_id: params[:dish_id],
+        quantity: params[:quantity],
+        status: "carted",
+        user_id: current_user.id
+      )
+    end
 
     if @carted_dish.save
       render "show.json.jb"
