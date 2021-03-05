@@ -1,1 +1,0 @@
-render partial: "preorder_hour.json.jb", locals: { preorder_hour: @preorder_hour }
