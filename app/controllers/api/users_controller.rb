@@ -44,8 +44,12 @@ class Api::UsersController < ApplicationController
       @user.last_name = params[:last_name] || @user.last_name
       @user.email = params[:email] || @user.email
       @user.image_url = params[:image_url] || @user.image_url
-      # @user.password = params[:password] || @user.password
-      # @user.password_confirmation = params[:password_confirmation] || @user.password_confirmation
+
+      if params[:password]
+        @user.password = params[:password]
+        @user.password_confirmation = params[:password_confirmation]
+      end
+
       @user.chef = params[:chef] || @user.chef
       @user.phone = params[:phone] || @user.phone
       @user.address = params[:address] || @user.address
