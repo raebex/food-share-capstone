@@ -4,7 +4,5 @@ json = {
 }
 
 json[:subtotal] = carted_dish.dish.price * carted_dish.quantity
-json[:dish] = render partial: "api/dishes/dish.json.jb", locals: { dish: carted_dish.dish }
-json[:chef] = User.find(carted_dish.dish.user_id)
 
 json

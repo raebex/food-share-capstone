@@ -8,6 +8,7 @@ class Api::CartedDishesController < ApplicationController
   end
 
   def create
+    # existing = CartedDish.find(params[:dish_id])
     @carted_dish = CartedDish.new(
       dish_id: params[:dish_id],
       quantity: params[:quantity],
