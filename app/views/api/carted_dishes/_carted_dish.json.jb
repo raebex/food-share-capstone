@@ -1,8 +1,5 @@
-json = {
+{
   id: carted_dish.id,
-  quantity: carted_dish.quantity
+  quantity: carted_dish.quantity,
+  subtotal: carted_dish.subtotal
 }
-
-json[:subtotal] = carted_dish.dish.price * carted_dish.quantity
-
-json
