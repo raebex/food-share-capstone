@@ -57,8 +57,6 @@ class Api::UsersController < ApplicationController
 
       if @user.save
         update_cuisines if params[:cuisine_ids]
-        update_preorder_hours if params[:preorder_hours]
-
         render "show.json.jb"
       else
         render json: {errors: @user.errors.full_messages}, status: :unprocessable_entity
@@ -84,22 +82,11 @@ class Api::UsersController < ApplicationController
   private
 
   def update_cuisines
-    @user.cuisines.destroy_all
+    @user.user_cuisines.each do |cuisine|
+      cuisine.destroy
+    end
     eval(params[:cuisine_ids]).each do |cuisine_id|
       UserCuisine.create(user_id: @user.id, cuisine_id: cuisine_id)
-    end
-  end
-
-  def update_preorder_hours
-    @user.preorder_hours.destroy_all
-
-    eval(params[:preorder_hours]).each do |preorder_hour|
-      PreorderHour.create(
-        day_of_week: preorder_hour[:day_of_week],
-        open: preorder_hour[:open],
-        close: preorder_hour[:close],
-        user_id: @user.id,
-      )
     end
   end
 end
