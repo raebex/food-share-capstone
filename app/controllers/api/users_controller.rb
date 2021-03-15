@@ -85,7 +85,7 @@ class Api::UsersController < ApplicationController
     @user.user_cuisines.each do |cuisine|
       cuisine.destroy
     end
-    eval(params[:cuisine_ids]).each do |cuisine_id|
+    params[:cuisine_ids].each do |cuisine_id|
       UserCuisine.create(user_id: @user.id, cuisine_id: cuisine_id)
     end
   end
