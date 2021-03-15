@@ -1,7 +1,18 @@
-@carted_dishes.map do |carted_dish|
-  json = render partial: "api/carted_dishes/carted_dish.json.jb", locals: { carted_dish: carted_dish }
-  json[:dish] = render partial: "api/dishes/dish.json.jb", locals: { dish: carted_dish.dish }
-  json[:chef] = User.find(carted_dish.dish.user_id)
+json = {}
 
-  json
+chef = User.find(@carted_dishes.first.dish.user_id)
+
+json[:chef] = render partial: "api/users/user.json.jb", locals: { user: chef}
+
+json[:chef][:preorder_hours] = chef.preorder_hours.map do |preorder_hour|
+  render partial: "api/preorder_hours/preorder_hour.json.jb", locals: { preorder_hour: preorder_hour }
 end
+
+json[:cart] = @carted_dishes.map do |carted_dish|
+  formatted = render partial: "api/carted_dishes/carted_dish.json.jb", locals: { carted_dish: carted_dish }
+  formatted[:dish] = render partial: "api/dishes/dish.json.jb", locals: { dish: carted_dish.dish }
+
+  formatted
+end
+
+json
