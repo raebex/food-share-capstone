@@ -8,12 +8,15 @@ class Api::DishesController < ApplicationController
   end
 
   def create
+    response = Cloudinary::Uploader.upload(params[:image_url], resource_type: :auto)
+    cloudinary_url = response["secure_url"]
+
     @dish = Dish.new(
       name: params[:name],
       price: params[:price],
       description: params[:description],
       user_id: current_user.id,
-      image_url: params[:image_url],
+      image_url: cloudinary_url,
       portion_size: params[:portion_size],
       featured: params[:featured]
     )
@@ -27,10 +30,14 @@ class Api::DishesController < ApplicationController
 
   def update
     @dish = Dish.find(params[:id])
+
+    response = Cloudinary::Uploader.upload(params[:image_url], resource_type: :auto)
+    cloudinary_url = response["secure_url"]
+
     @dish.name = params[:name] || @dish.name
     @dish.price = params[:price] || @dish.price
     @dish.description = params[:description] || @dish.description
-    @dish.image_url = params[:image_url] || @dish.image_url
+    @dish.image_url = cloudinary_url || @dish.image_url
     @dish.portion_size = params[:portion_size] || @dish.portion_size
     @dish.featured = params[:featured] || @dish.featured
 
