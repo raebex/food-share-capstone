@@ -33,6 +33,8 @@ class Api::OrdersController < ApplicationController
         carted_dish.update(status: "purchased")
       end
 
+      send_sms('+18286046197', "+1#{current_user.phone}", "+1#{@order.chef.phone}", @order)
+
       render "show.json.jb"
     else
       render json: { errors: @order.errors.full_messages }, status: :bad_request
@@ -58,6 +60,25 @@ class Api::OrdersController < ApplicationController
     else
       render json: { message: "Order cannot be cancelled" }
     end
-    
+  end
+
+  private
+
+  def send_sms(twilioPhone, patronPhone, chefPhone, order)
+    account_sid = Rails.application.credentials.twilio[:account_sid]
+    auth_token = Rails.application.credentials.twilio[:auth_token]
+    client = Twilio::REST::Client.new(account_sid, auth_token)
+
+    client.messages.create(
+      from: twilioPhone,
+      to: patronPhone,
+      body: "Woohoo! Your order with Chef #{order.chef.first_name} will be ready on #{order.ready_time.strftime('%b %e,%l:%M %p')}"
+    )
+
+    client.messages.create(
+      from: twilioPhone,
+      to: chefPhone,
+      body: "Woohoo! You have a new order from #{order.user.first_name} that should be ready on #{order.ready_time.strftime('%b %e,%l:%M %p')}. Login to your account to view more details."
+    )
   end
 end
