@@ -6,6 +6,11 @@
   email: user.email,
   chef: user.chef,
   bio: user.bio,
-  address: user.address,
+  address: {
+    street: user.street,
+    city: user.city,
+    state: user.state,
+    zip_code: user.zip_code
+  },
   phone: user.phone
 }

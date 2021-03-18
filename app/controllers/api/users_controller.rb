@@ -17,20 +17,13 @@ class Api::UsersController < ApplicationController
   end
 
   def create
-    response = Cloudinary::Uploader.upload(params[:image], resource_type: :auto)
-    cloudinary_url = response["secure_url"]
-  
     @user = User.new(
       first_name: params[:first_name],
       last_name: params[:last_name],
       email: params[:email],
-      image_url: cloudinary_url,
       password: params[:password],
       password_confirmation: params[:password_confirmation],
-      chef: params[:chef],
-      phone: params[:phone],
-      address: params[:address],
-      bio: params[:bio]
+      chef: params[:chef]
     )
     if @user.save
       render "show.json.jb"
@@ -57,7 +50,10 @@ class Api::UsersController < ApplicationController
 
       @user.chef = params[:chef] || @user.chef
       @user.phone = params[:phone] || @user.phone
-      @user.address = params[:address] || @user.address
+      @user.street = params[:street] || @user.street
+      @user.city = params[:city] || @user.city
+      @user.state = params[:state] || @user.state
+      @user.zip_code = params[:zip_code] || @user.zip_code
       @user.bio = params[:bio] || @user.bio
 
       if @user.save
