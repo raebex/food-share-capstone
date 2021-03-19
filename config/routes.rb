@@ -25,6 +25,7 @@ Rails.application.routes.draw do
 
     get "/orders" => "orders#index"
     post "/orders" => "orders#create"
+    post "/stripe-checkout" => "orders#checkout"
     get "/orders/:id" => "orders#show"
     delete "/orders/:id" => "orders#destroy"
   end

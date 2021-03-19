@@ -12,57 +12,59 @@ class Api::OrdersController < ApplicationController
     render "index.json.jb"
   end
 
-  def create
-    # @order = Order.new(
-    #   user_id: current_user.id,
-    #   delivery: params[:delivery],
-    #   ready_time: params[:ready_time],
-    #   status: "received"
-    # )
-
-    # carted_dishes = current_user.carted_dishes.where(status: "carted")
-
-    # @order[:subtotal] = 0
-    # carted_dishes.each {|carted_dish| @order[:subtotal] += carted_dish.dish.price * carted_dish.quantity }
-
-    # @order[:chef_id] = carted_dishes.first.dish.user_id
-
+  def checkout
     Stripe.api_key = Rails.application.credentials.stripe[:api_key]
-
     session = Stripe::Checkout::Session.create({
       payment_method_types: ['card'],
       line_items: [{
         price_data: {
           currency: 'usd',
           product_data: {
-            name: 'shirt',
+            name: "Dishes from #{params[:chef]}",
           },
-          unit_amount: 2000,
+          unit_amount: params[:price],
         },
         quantity: 1,
       }],
       mode: 'payment',
-      # These placeholder URLs will be replaced in a following step.
-      success_url: 'http://localhost:8080/orders',
-      cancel_url: 'https://example.com/cancel',
+      success_url: "http://localhost:8080/orders",
+      cancel_url: 'http://localhost:8080/cart',
     })
 
-    @id = session.id
+    @stripe_id = session.id
 
     render "stripe.json.jb"
+  end
 
-    # if @order.save
-    #   carted_dishes.each do |carted_dish| 
-    #     carted_dish.update(order_id: @order.id)
-    #     carted_dish.update(status: "purchased")
-    #   end
+  def create
+    @order = Order.new(
+      user_id: current_user.id,
+      delivery: params[:delivery],
+      ready_time: params[:ready_time],
+      status: "received"
+    )
 
-    #   send_sms('+18286046197', "+1#{current_user.phone}", "+1#{@order.chef.phone}", @order)
+    carted_dishes = current_user.carted_dishes.where(status: "carted")
 
-    #   render "show.json.jb"
-    # else
-    #   render json: { errors: @order.errors.full_messages }, status: :bad_request
-    # end
+    @order[:subtotal] = 0
+    carted_dishes.each {|carted_dish| @order[:subtotal] += carted_dish.dish.price * carted_dish.quantity }
+
+    @order[:chef_id] = carted_dishes.first.dish.user_id
+
+    p @order.ready_time
+
+    if @order.save
+      carted_dishes.each do |carted_dish| 
+        carted_dish.update(order_id: @order.id)
+        carted_dish.update(status: "purchased")
+      end
+
+      send_sms('+18286046197', "+1#{current_user.phone}", "+1#{@order.chef.phone}", @order)
+
+      render "show.json.jb"
+    else
+      render json: { errors: @order.errors.full_messages }, status: :bad_request
+    end
   end
 
   def show
