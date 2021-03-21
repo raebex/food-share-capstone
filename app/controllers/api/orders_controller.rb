@@ -12,30 +12,6 @@ class Api::OrdersController < ApplicationController
     render "index.json.jb"
   end
 
-  def checkout
-    Stripe.api_key = Rails.application.credentials.stripe[:api_key]
-    session = Stripe::Checkout::Session.create({
-      payment_method_types: ['card'],
-      line_items: [{
-        price_data: {
-          currency: 'usd',
-          product_data: {
-            name: "Dishes from #{params[:chef]}",
-          },
-          unit_amount: params[:price],
-        },
-        quantity: 1,
-      }],
-      mode: 'payment',
-      success_url: "http://localhost:8080/orders",
-      cancel_url: 'http://localhost:8080/cart',
-    })
-
-    @stripe_id = session.id
-
-    render "stripe.json.jb"
-  end
-
   def create
     @order = Order.new(
       user_id: current_user.id,
@@ -51,15 +27,31 @@ class Api::OrdersController < ApplicationController
 
     @order[:chef_id] = carted_dishes.first.dish.user_id
 
-    p @order.ready_time
-
     if @order.save
+      Stripe.api_key = Rails.application.credentials.stripe[:api_key]
+      session = Stripe::Checkout::Session.create({
+        payment_method_types: ['card'],
+        line_items: [{
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: "Dishes from #{@order.chef.first_name}",
+            },
+            unit_amount: (@order.total * 100).to_i,
+          },
+          quantity: 1,
+        }],
+        mode: 'payment',
+        success_url: "http://localhost:8080/orders/#{@order.id}",
+        cancel_url: 'http://localhost:8080/cart',
+      })
+  
+      @stripe_id = session.id
+      send_sms('+18286046197', "+1#{current_user.phone}", "+1#{@order.chef.phone}", @order)
       carted_dishes.each do |carted_dish| 
         carted_dish.update(order_id: @order.id)
         carted_dish.update(status: "purchased")
       end
-
-      send_sms('+18286046197', "+1#{current_user.phone}", "+1#{@order.chef.phone}", @order)
 
       render "show.json.jb"
     else
