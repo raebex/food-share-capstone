@@ -4,5 +4,11 @@
   json[:chef] = render partial: "api/users/user.json.jb", locals: { user: User.find_by(id: order.chef_id) }
   json[:patron] = render partial: "api/users/user.json.jb", locals: { user: User.find_by(id: order.user_id) }
 
+  json[:dishes] = order.carted_dishes.map do |carted_dish|
+    formatted = render partial: "api/dishes/dish.json.jb", locals: { dish: carted_dish.dish }
+    formatted[:quantity] = carted_dish.quantity
+    formatted
+  end
+
   json
 end
