@@ -1,0 +1,3 @@
+{
+  stripe_id: @stripe_id
+}

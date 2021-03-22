@@ -12,7 +12,37 @@ class Api::OrdersController < ApplicationController
     render "index.json.jb"
   end
 
+  def checkout
+    Stripe.api_key = Rails.application.credentials.stripe[:api_key]
+    session = Stripe::Checkout::Session.create({
+      payment_method_types: ['card'],
+      line_items: [{
+        price_data: {
+          currency: 'usd',
+          product_data: {
+            name: "Dishes from #{params[:chef_name]}",
+          },
+          unit_amount: (params[:total] * 100).to_i,
+        },
+        quantity: 1,
+      }],
+      mode: 'payment',
+      success_url: "http://localhost:8080/orders/create?delivery=#{params[:delivery]}&ready_time=#{params[:ready_time]}",
+      cancel_url: 'http://localhost:8080/cart',
+    })
+
+    @stripe_id = session.id
+
+    render "stripe.json.jb"
+  end
+
   def create
+    # create route just for creating stripe session
+    # returns the session id, frontend redirects to stripe page
+    # success url -> localhost:8080/orders/new include query params for delivery and ready_time
+    # frontend view creates order (no html) imports axios runs axios to create new order
+    # router push to orders show
+
     @order = Order.new(
       user_id: current_user.id,
       delivery: params[:delivery],
@@ -23,31 +53,14 @@ class Api::OrdersController < ApplicationController
     carted_dishes = current_user.carted_dishes.where(status: "carted")
 
     @order[:subtotal] = 0
-    carted_dishes.each {|carted_dish| @order[:subtotal] += carted_dish.dish.price * carted_dish.quantity }
+    carted_dishes.each do |carted_dish| 
+      @order[:subtotal] += carted_dish.dish.price * carted_dish.quantity 
+    end
 
     @order[:chef_id] = carted_dishes.first.dish.user_id
 
     if @order.save
-      Stripe.api_key = Rails.application.credentials.stripe[:api_key]
-      session = Stripe::Checkout::Session.create({
-        payment_method_types: ['card'],
-        line_items: [{
-          price_data: {
-            currency: 'usd',
-            product_data: {
-              name: "Dishes from #{@order.chef.first_name}",
-            },
-            unit_amount: (@order.total * 100).to_i,
-          },
-          quantity: 1,
-        }],
-        mode: 'payment',
-        success_url: "http://localhost:8080/orders/success?order_id=#{@order.id}",
-        cancel_url: 'http://localhost:8080/cart',
-      })
-  
-      @stripe_id = session.id
-      send_sms('+18286046197', "+1#{current_user.phone}", "+1#{@order.chef.phone}", @order)
+      # send_sms('+18 286046197', "+1#{current_user.phone}", "+1#{@order.chef.phone}", @order)
       carted_dishes.each do |carted_dish| 
         carted_dish.update(order_id: @order.id)
         carted_dish.update(status: "purchased")
@@ -57,12 +70,6 @@ class Api::OrdersController < ApplicationController
     else
       render json: { errors: @order.errors.full_messages }, status: :bad_request
     end
-  end
-
-  def success
-    @order = current_user.orders.find(params[:order_id])
-
-    render "success.json.jb"
   end
 
   def show

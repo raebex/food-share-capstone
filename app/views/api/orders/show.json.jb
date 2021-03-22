@@ -9,6 +9,4 @@ formatted[:dishes] = @order.carted_dishes.map do |carted_dish|
   json
 end
 
-formatted[:stripe_id] = @stripe_id
-
 formatted
