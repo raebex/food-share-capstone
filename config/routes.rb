@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     delete "/carted_dishes/:id" => "carted_dishes#destroy"
 
     get "/orders" => "orders#index"
+    get "/orders/success" => "orders#success"
     post "/orders" => "orders#create"
     post "/stripe-checkout" => "orders#checkout"
     get "/orders/:id" => "orders#show"

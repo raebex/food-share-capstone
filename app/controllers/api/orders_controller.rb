@@ -42,7 +42,7 @@ class Api::OrdersController < ApplicationController
           quantity: 1,
         }],
         mode: 'payment',
-        success_url: "http://localhost:8080/orders/#{@order.id}",
+        success_url: "http://localhost:8080/orders/success?order_id=#{@order.id}",
         cancel_url: 'http://localhost:8080/cart',
       })
   
@@ -57,6 +57,12 @@ class Api::OrdersController < ApplicationController
     else
       render json: { errors: @order.errors.full_messages }, status: :bad_request
     end
+  end
+
+  def success
+    @order = current_user.orders.find(params[:order_id])
+
+    render "success.json.jb"
   end
 
   def show
