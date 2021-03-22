@@ -37,12 +37,6 @@ class Api::OrdersController < ApplicationController
   end
 
   def create
-    # create route just for creating stripe session
-    # returns the session id, frontend redirects to stripe page
-    # success url -> localhost:8080/orders/new include query params for delivery and ready_time
-    # frontend view creates order (no html) imports axios runs axios to create new order
-    # router push to orders show
-
     @order = Order.new(
       user_id: current_user.id,
       delivery: params[:delivery],
@@ -60,7 +54,7 @@ class Api::OrdersController < ApplicationController
     @order[:chef_id] = carted_dishes.first.dish.user_id
 
     if @order.save
-      # send_sms('+18 286046197', "+1#{current_user.phone}", "+1#{@order.chef.phone}", @order)
+      send_sms('+18 286046197', "+1#{current_user.phone}", "+1#{@order.chef.phone}", @order)
       carted_dishes.each do |carted_dish| 
         carted_dish.update(order_id: @order.id)
         carted_dish.update(status: "purchased")
