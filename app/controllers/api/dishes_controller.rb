@@ -31,8 +31,10 @@ class Api::DishesController < ApplicationController
   def update
     @dish = Dish.find(params[:id])
 
-    response = Cloudinary::Uploader.upload(params[:image_url], resource_type: :auto)
-    cloudinary_url = response["secure_url"]
+    if params[:image_url] != ""
+      response = Cloudinary::Uploader.upload(params[:image_url], resource_type: :auto)
+      cloudinary_url = response["secure_url"]
+    end
 
     @dish.name = params[:name] || @dish.name
     @dish.price = params[:price] || @dish.price
