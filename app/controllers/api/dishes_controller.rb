@@ -8,18 +8,21 @@ class Api::DishesController < ApplicationController
   end
 
   def create
-    response = Cloudinary::Uploader.upload(params[:image_url], resource_type: :auto)
-    cloudinary_url = response["secure_url"]
-
     @dish = Dish.new(
       name: params[:name],
       price: params[:price],
       description: params[:description],
       user_id: current_user.id,
-      image_url: cloudinary_url,
       portion_size: params[:portion_size],
       featured: params[:featured]
     )
+
+    if params[:image_url]
+      response = Cloudinary::Uploader.upload(params[:image_url], resource_type: :auto)
+      cloudinary_url = response["secure_url"]
+
+      @dish[:image_url] = cloudinary_url
+    end
 
     if @dish.save
       render "show.json.jb"
