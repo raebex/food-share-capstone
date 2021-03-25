@@ -1,85 +1,120 @@
-User.create([
-  {
-    first_name: "Emmett",
-    last_name: "Yang",
-    email: "emmett.yang@gmail.com",
-    image_url: "https://res.cloudinary.com/dbzsxlcft/image/upload/v1616610340/qs6vmwdv8cb6ldsla3we.jpg",
-    password: "password",
-    chef: true,
-    phone: "8479626192",
-    street: "#{FFaker::AddressUS.building_number} #{FFaker::AddressUS.street_name} #{FFaker::AddressUS.street_suffix}",
-    city: "Chicago"
-    state: "IL",
-    zip_code: FFaker::AddressUS.zip_code,
-    bio: "A highly acclaimed food writer and recipe developer, Emmett has penned culinary content on everything from Hawaiian cuisine to vegan sausage making."
-  },
-  {
-    first_name: "Rebecca",
-    last_name: "Young",
-    email: "rebecca@gmail.com",
-    image_url: "https://res.cloudinary.com/dbzsxlcft/image/upload/v1616614184/wobsfky131vs7leqt7fk.jpg",
-    password: "password",
-    chef: false,
-    phone: "8479626192",
-    street: "#{FFaker::AddressUS.building_number} #{FFaker::AddressUS.street_name} #{FFaker::AddressUS.street_suffix}",
-    city: "Chicago"
-    state: "IL",
-    zip_code: FFaker::AddressUS.zip_code,
-    bio: "I'm a full stack developer, musician, and music educator living in Chicago. My main life mission is to make the web and music accessible to all people. I play guitar in a post metal band, bass in an indie pop band, and flute in a 15 piece funk collective. I also like propogating plants, knitting, sewing, and popping pimples. "
-  },
+Cuisine.create!([
+  {name: "Vegan"},
+  {name: "Baked Goods"},
+  {name: "American"},
+  {name: "Chinese"},
+  {name: "Indian"},
+  {name: "Mexican"},
+  {name: "Gluten Free"},
+  {name: "Italian"},
+  {name: "Thai"},
+  {name: "Soul Food"},
+  {name: "Caribbean"}
 ])
-
-# Create more chefs
-10.times do
-  chef = HTTP.get("https://randomuser.me/api/").parse["results"][0]
-
-  User.create({
-    first_name: chef["name"]["first"],
-    last_name: chef["name"]["last"],
-    email: chef["email"],
-    image_url: chef["picture"]["medium"],
-    password: "password",
-    chef: true,
-    phone: "8479626192",
-    street: "#{chef["location"]["street"]["number"]} #{chef["location"]["street"]["name"]}",
-    city: "Chicago",
-    state: "IL",
-    zip_code: chef["location"]["postcode"]
-  })
-end
-
-Cuisine.create([
-  {
-    name: "Vegan"
-  },
-  {
-    name: "Baked Goods"
-  },
-  {
-    name: "American"
-  },
-  {
-    name: "Chinese"
-  },
-  {
-    name: "Indian"
-  },
-  {
-    name: "Mexican"
-  },
-  {
-    name: "Gluten Free"
-  },
-  {
-    name: "Italian"
-  },
-  {
-    name: "Thai"
-  },
-  {
-    name: "Soul Food"
-  },
-  {
-    name: "Caribbean"
-  },
+User.create!([
+  {first_name: "Dolores", last_name: "Freitas", image_url: "https://res.cloudinary.com/dbzsxlcft/image/upload/v1616611424/bfhxds1r0paogvdybbvt.jpg", email: "dolores.freitas@example.com", password_digest: "$2a$12$.3PyEirFI2wgzJ9E8Eki/ODbGK6WBvogJi47cHfrbDDCOhUEJCZS2", chef: true, bio: "For over 30 years, Dolores has honed her craft with both knife and pen. She started working on windjammers as a mess cook and quickly developed a lifelong passion for cooking, gardening, sailing and outdoor living.", phone: "(06) 2247-5526", street: "893 Rua Primeiro de Maio ", city: "Chicago", state: "IL", zip_code: "40492"},
+  {first_name: "Emile", last_name: "Lévesque", image_url: "https://res.cloudinary.com/dbzsxlcft/image/upload/v1616612064/zwp3nsvkiyczh5a5wax3.jpg", email: "emile.levesque@example.com", password_digest: "$2a$12$OjvM/9hAKqO5VuwKruxOce9W0Fu/9WJnb//scOY1ePfFOlA3lUNJ.", chef: true, bio: "Bacon aficionado. Student. Beer junkie. Avid social media buff. Coffee enthusiast. Introvert. Freelance alcohol nerd. Hardcore zombie ninja.", phone: "663-543-2306", street: "9081 3rd St", city: "Chicago", state: "IL", zip_code: "L7C 4G6"},
+  {first_name: "یسنا", last_name: "کوتی", image_url: "https://randomuser.me/api/portraits/med/women/46.jpg", email: "ysn.khwty@example.com", password_digest: "$2a$12$R3IMOdiy3g7UIlYoimqgPes7mjQx7QvwxQjqlKRUAShcly8Qnj1sO", chef: true, bio: "Twitter practitioner. Organizer. Bacon maven. Wannabe social media trailblazer. Troublemaker. Travel nerd. Analyst.", phone: "8479626192", street: "7064 شهید علی باستانی", city: "Chicago", state: "IL", zip_code: "72287"},
+  {first_name: "Judith", last_name: "Dean", image_url: "https://randomuser.me/api/portraits/med/women/75.jpg", email: "judith.dean@example.com", password_digest: "$2a$12$RmqLTbfQ5tnoM25Dy1OCtuTKk3IJzu5OhVdGDATUljU1hxfrmSuvG", chef: true, bio: "Pop culture fanatic. Student. Zombie aficionado. Web specialist. Internet scholar. Gamer.", phone: "8479626192", street: "1115 Dublin Road", city: "Chicago", state: "IL", zip_code: "71264"},
+  {first_name: "Miriam", last_name: "Harris", image_url: "https://res.cloudinary.com/dbzsxlcft/image/upload/v1616613434/zjjnf5ksrwsgkay7uorf.jpg", email: "miriam.harris@example.com", password_digest: "$2a$12$4VhDRqlAUndalBv5gUYPOOtbZ6vadHfcnVecP6SQzZg5AtdIEXSry", chef: true, bio: "Typical internet junkie. Explorer. Writer. Certified communicator. Travel fanatic. Baconaholic.", phone: "8479626192", street: "6784 Timber Wolf Trail", city: "Chicago", state: "IL", zip_code: "39413"},
+  {first_name: "Emmett", last_name: "Yang", image_url: "https://res.cloudinary.com/dbzsxlcft/image/upload/v1616610340/qs6vmwdv8cb6ldsla3we.jpg", email: "emmett.yang@gmail.com", password_digest: "$2a$12$bGeH1kGLbwgbgQOoUtc8VeBQ2zr0uJOGc247GIOQ8JzG7ukgroSFe", chef: true, bio: "A highly acclaimed food writer and recipe developer, Emmett has penned culinary content on everything from Hawaiian cuisine to vegan sausage making.", phone: "8479626192", street: "89904 Sudie Forest Wall", city: "Chicago", state: "IL", zip_code: "05037-8891"},
+  {first_name: "Giray", last_name: "Dizdar", image_url: "https://res.cloudinary.com/dbzsxlcft/image/upload/v1616612767/bhjm5c8pflqnxshwqi5p.jpg", email: "giray.dizdar@example.com", password_digest: "$2a$12$L.8i.uAPTkampwfzDUtoDudq2PGRZ83dodDlwgm75AoYis1rkMaCW", chef: true, bio: "Food expert. Alcohol trailblazer. Coffee junkie. Bacon practitioner. Internet enthusiast. Tv fan.", phone: "8479626192", street: "9062 Abanoz Sk", city: "Chicago", state: "IL", zip_code: "62263"},
+  {first_name: "Leonard", last_name: "Sims", image_url: "https://res.cloudinary.com/dbzsxlcft/image/upload/v1616612560/pibfny2ubk4ptd3knbgy.jpg", email: "leonard.sims@example.com", password_digest: "$2a$12$QOCCjG0gj6npOapSRnYK8eZ4iZ6ogUopkujc8de/YfGmQhs/FSWl2", chef: true, bio: "Alcohol geek. Proud introvert. Travel fan. Pop culture specialist. Typical music scholar.", phone: "8479626192", street: "8107 New Street", city: "Chicago", state: "IL", zip_code: "46504"},
+  {first_name: "Heidi", last_name: "Hicks", image_url: "https://randomuser.me/api/portraits/med/women/80.jpg", email: "heidi.hicks@example.com", password_digest: "$2a$12$HybUPUj./ezHDH1uS9uIZOwiusEkiFj4jutG87HBUtf1hLv4szRaK", chef: true, bio: "Travel advocate. Social media fan. Twitter maven. Avid thinker. Zombie scholar. Creator. Explorer. Pop culture nerd. Internet buff. Evil food geek. Tv ninja.", phone: "8479626192", street: "674 Spring St", city: "Chicago", state: "IL", zip_code: "56423"},
+  {first_name: "Javier", last_name: "Molina", image_url: "https://randomuser.me/api/portraits/med/men/94.jpg", email: "javier.molina@example.com", password_digest: "$2a$12$sLVj35Ej8Bs5TP14s9wnieBCE5gStlq35I6EebVDeS9DgsXeukRKO", chef: true, bio: "Creator. Coffee buff. Tv advocate. Incurable travel scholar. Alcohol geek. Extreme writer.", phone: "8479626192", street: "6102 Avenida del Planetario", city: "Chicago", state: "IL", zip_code: "26925"},
+  {first_name: "Ritthy", last_name: "Freeman", image_url: "https://res.cloudinary.com/dbzsxlcft/image/upload/v1616613000/qxn8mbz5h78conefgbrp.jpg", email: "ritthy.freeman@example.com", password_digest: "$2a$12$jCVZgLhW5RI9Tw4F1CAdz.p4yn.qznzxeBdokCI.9lzfuzYJOtBRS", chef: true, bio: "Unapologetic writer. Zombie aficionado. Explorer. Avid communicator. Webaholic. Social media ninja. Pop culture expert. Analyst. Beer fan.", phone: "8479626192", street: "3717 Manor Road", city: "Chicago", state: "IL", zip_code: "KC1U 5WP"},
+  {first_name: "Olivier", last_name: "Fontai", image_url: "https://res.cloudinary.com/dbzsxlcft/image/upload/v1616613657/mlkqfdnq8ykexvbu2fkp.jpg", email: "olivier.fontai@example.com", password_digest: "$2a$12$4KcnpcAgD2yq5kBDHKSbHuJHwyajwYr5nyQTtjA6XQ9OgckKoSMmW", chef: true, bio: "Tv enthusiast. Beeraholic. Passionate social media fanatic. Freelance pop culture guru. Zombie buff.", phone: "8479626192", street: "2234 Quai Charles-De-Gaulle", city: "Chicago", state: "IL", zip_code: "7380"},
+  {first_name: "Noah", last_name: "Jørgensen", image_url: "https://res.cloudinary.com/dbzsxlcft/image/upload/v1616613933/e2aertlrspxxq7t6e9tq.jpg", email: "noah.jorgensen@example.com", password_digest: "$2a$12$bQny92y2HM7aVDF14Hr6DuPM.La1M/mNFaGKowh9P9HOZsG90pSxa", chef: true, bio: "Evil web enthusiast. Social media ninja. Travel fanatic. Communicator. Pop culture trailblazer.", phone: "8479626192", street: "2536 Assensvej", city: "Chicago", state: "IL", zip_code: "58995"},
+  {first_name: "Rebecca", last_name: "Young", image_url: "https://res.cloudinary.com/dbzsxlcft/image/upload/v1616614184/wobsfky131vs7leqt7fk.jpg", email: "rebecca@gmail.com", password_digest: "$2a$12$.knwbL2Gwt88aZ0bc7HpWeQ.TfUeHUq4KiLM6O2IdeTjdd2vHUcMa", chef: false, bio: "I'm a full stack developer, musician, and music educator living in Chicago. My main life mission is to make the web and music accessible to all people. I play guitar in a post metal band, bass in an indie pop band, and flute in a 15 piece funk collective. I also like propogating plants, knitting, sewing, and popping pimples. ", phone: "8479626192", street: "37185 Gerhold Rest Rapids", city: "Chicago", state: "IL", zip_code: "90488-0307"}
+])
+PreorderHour.create!([
+  {day_of_week: "Monday", open: "2000-01-01 15:00:00", close: "2000-01-01 21:00:00", user_id: 1},
+  {day_of_week: "Tuesday", open: "2000-01-01 15:00:00", close: "2000-01-01 21:00:00", user_id: 1},
+  {day_of_week: "Wednesday", open: "2000-01-01 10:00:00", close: "2000-01-01 14:00:00", user_id: 1},
+  {day_of_week: "Thursday", open: "2000-01-01 17:00:00", close: "2000-01-01 20:00:00", user_id: 1},
+  {day_of_week: "Friday", open: "2000-01-01 15:00:00", close: "2000-01-01 23:00:00", user_id: 1},
+  {day_of_week: "Saturday", open: "2000-01-01 11:00:00", close: "2000-01-01 23:00:00", user_id: 1},
+  {day_of_week: "Sunday", open: "2000-01-01 11:00:00", close: "2000-01-01 18:00:00", user_id: 1},
+  {day_of_week: "Friday", open: "2000-01-01 14:00:00", close: "2000-01-01 23:00:00", user_id: 3},
+  {day_of_week: "Saturday", open: "2000-01-01 14:00:00", close: "2000-01-01 23:00:00", user_id: 3},
+  {day_of_week: "Sunday", open: "2000-01-01 11:00:00", close: "2000-01-01 19:00:00", user_id: 3},
+  {day_of_week: "Thursday", open: "2000-01-01 10:00:00", close: "2000-01-01 21:00:00", user_id: 4},
+  {day_of_week: "Friday", open: "2000-01-01 16:00:00", close: "2000-01-01 23:00:00", user_id: 4},
+  {day_of_week: "Saturday", open: "2000-01-01 16:00:00", close: "2000-01-01 23:00:00", user_id: 4},
+  {day_of_week: "Monday", open: "2000-01-01 09:00:00", close: "2000-01-01 23:00:00", user_id: 6},
+  {day_of_week: "Tuesday", open: "2000-01-01 09:00:00", close: "2000-01-01 23:00:00", user_id: 6},
+  {day_of_week: "Wednesday", open: "2000-01-01 09:00:00", close: "2000-01-01 23:00:00", user_id: 6},
+  {day_of_week: "Friday", open: "2000-01-01 09:00:00", close: "2000-01-01 23:00:00", user_id: 6},
+  {day_of_week: "Saturday", open: "2000-01-01 09:00:00", close: "2000-01-01 23:00:00", user_id: 6},
+  {day_of_week: "Sunday", open: "2000-01-01 09:00:00", close: "2000-01-01 23:00:00", user_id: 6},
+  {day_of_week: "Thursday", open: "2000-01-01 13:00:00", close: "2000-01-01 23:00:00", user_id: 10},
+  {day_of_week: "Friday", open: "2000-01-01 13:00:00", close: "2000-01-01 23:00:00", user_id: 10},
+  {day_of_week: "Saturday", open: "2000-01-01 13:00:00", close: "2000-01-01 23:00:00", user_id: 10},
+  {day_of_week: "Sunday", open: "2000-01-01 13:00:00", close: "2000-01-01 23:00:00", user_id: 10},
+  {day_of_week: "Thursday", open: "2000-01-01 09:00:00", close: "2000-01-01 23:00:00", user_id: 13},
+  {day_of_week: "Friday", open: "2000-01-01 16:00:00", close: "2000-01-01 23:00:00", user_id: 13},
+  {day_of_week: "Saturday", open: "2000-01-01 16:00:00", close: "2000-01-01 23:00:00", user_id: 13},
+  {day_of_week: "Sunday", open: "2000-01-01 16:00:00", close: "2000-01-01 23:00:00", user_id: 13},
+  {day_of_week: "Friday", open: "2000-01-01 09:00:00", close: "2000-01-01 23:00:00", user_id: 9},
+  {day_of_week: "Friday", open: "2000-01-01 14:00:00", close: "2000-01-01 23:00:00", user_id: 8},
+  {day_of_week: "Saturday", open: "2000-01-01 14:00:00", close: "2000-01-01 23:00:00", user_id: 8},
+  {day_of_week: "Sunday", open: "2000-01-01 14:00:00", close: "2000-01-01 23:00:00", user_id: 8},
+  {day_of_week: "Wednesday", open: "2000-01-01 13:00:00", close: "2000-01-01 23:00:00", user_id: 12},
+  {day_of_week: "Thursday", open: "2000-01-01 13:00:00", close: "2000-01-01 23:00:00", user_id: 12},
+  {day_of_week: "Friday", open: "2000-01-01 13:00:00", close: "2000-01-01 23:00:00", user_id: 12},
+  {day_of_week: "Saturday", open: "2000-01-01 13:00:00", close: "2000-01-01 23:00:00", user_id: 12},
+  {day_of_week: "Sunday", open: "2000-01-01 13:00:00", close: "2000-01-01 23:00:00", user_id: 12}
+])
+Dish.create!([
+  {name: "Avocado Brownie", price: "3.25", description: "Vegan brownie that subs avocado for butter", user_id: 1, image_url: "https://res.cloudinary.com/dbzsxlcft/image/upload/v1616607760/zgdqgpo2yyycp3elu0wa.jpg", portion_size: "1 brownie", featured: true},
+  {name: "Apple Donut", price: "2.96", description: "Flour donut stuffed with apple jelly. Vegan!", user_id: 1, image_url: "https://res.cloudinary.com/dbzsxlcft/image/upload/v1616608087/hgcgkqylsd3fj7txw2ct.jpg", portion_size: "1 donut", featured: false},
+  {name: "Birthday Cake Cupcake", price: "5.5", description: "Funfetti cupcake with vanilla buttercream frosting", user_id: 1, image_url: "https://res.cloudinary.com/dbzsxlcft/image/upload/v1616609129/g37nq0toia1vyeto3h17.jpg", portion_size: "", featured: false},
+  {name: "Red bean bun", price: "3.25", description: "Baked bun with red bean filling and sesame seed garnish", user_id: 1, image_url: "https://res.cloudinary.com/dbzsxlcft/image/upload/v1616609201/djozu6ywtiui0v1p2ycl.jpg", portion_size: "1 bun", featured: false},
+  {name: "Chocolate Croissant", price: "2.5", description: "Flaky pastry with chocolate filling", user_id: 1, image_url: "https://res.cloudinary.com/dbzsxlcft/image/upload/v1616609301/zx6mgzqybxjsxuoafnfm.jpg", portion_size: "", featured: false},
+  {name: "Red velvet donut", price: "3.25", description: "Red velvet cake donut with cream cheese frosting", user_id: 1, image_url: "https://res.cloudinary.com/dbzsxlcft/image/upload/v1616609369/xnki80mpbfxckklyjss9.jpg", portion_size: "", featured: false},
+  {name: "Samosas", price: "5.25", description: "The triangular shaped flaky pastry filled with spicy potato and chicken ", user_id: 3, image_url: "https://res.cloudinary.com/dbzsxlcft/image/upload/v1616611858/alge1btr08vawcfrxlks.jpg", portion_size: "1 cupcake", featured: false},
+  {name: "Palak Paneer", price: "9.95", description: "A mildly flavored dish made with spinach and cottage cheese (the paneer)", user_id: 3, image_url: "https://res.cloudinary.com/dbzsxlcft/image/upload/v1616611935/lq5oelxqzo100wrwkstl.png", portion_size: "16 oz container", featured: false},
+  {name: "Chicken Tikka Masala", price: "10.95", description: "Grilled chicken dish with a tomato-yogurt sauce is spiced with chili, garlic, ginger, and garam masala.", user_id: 3, image_url: "https://res.cloudinary.com/dbzsxlcft/image/upload/v1616611828/nfkr19zz4io2oylnhod7.png", portion_size: "16 oz container", featured: true},
+  {name: "Corned Beef Hash with Fried Eggs", price: "8.0", description: "Homemade wagyu beef with tomato-rich chunky hash", user_id: 4, image_url: "https://res.cloudinary.com/dbzsxlcft/image/upload/v1616612184/dnef4g0fnlklec3ziwcj.jpg", portion_size: "16 oz container", featured: true},
+  {name: "Bacon Burger on Brioche Bun", price: "11.25", description: "Custom blend of ground prime rib, brisket, skirt steak and tenderloin, topped with Nueske’s bacon and Cowgirl Creamery’s triple-cream Mt. Tam cheese.", user_id: 4, image_url: "https://res.cloudinary.com/dbzsxlcft/image/upload/v1616612362/lw5ymafjxz5edvrbkgds.jpg", portion_size: "1 burger, comes with fries", featured: false},
+  {name: "Fried Chicken", price: "6.5", description: "Classically fried in a cast-iron skillet, made Nashville hot, or paired with a waffle", user_id: 6, image_url: "https://res.cloudinary.com/dbzsxlcft/image/upload/v1616612711/pyifkiaejx8tl4buevbf.png", portion_size: "Half chicken", featured: true},
+  {name: "Pad See Eiw", price: "9.95", description: "Stir-fried wide rice noodle in sauce, carrot, broccoli, and egg.", user_id: 10, image_url: "https://res.cloudinary.com/dbzsxlcft/image/upload/v1616612858/l88udofrvwi4pyr24voc.jpg", portion_size: "24 oz container", featured: true},
+  {name: "Panang Curry", price: "10.95", description: "Thai peanut curry paste, with basil, and bell pepper. Served with jasmine rice.", user_id: 10, image_url: "https://res.cloudinary.com/dbzsxlcft/image/upload/v1616612922/gnwuxra8hfpbrqwybims.jpg", portion_size: "24 oz container, rice on the side", featured: false},
+  {name: "Chicken Tacos", price: "7.5", description: "", user_id: 13, image_url: "https://res.cloudinary.com/dbzsxlcft/image/upload/v1616613132/bzw0xdr0kmzjcf4na4dp.jpg", portion_size: "4 tacos", featured: true},
+  {name: "Apple-Cheddar Pie", price: "20.0", description: "Apple pie with diced sharp cheddar in the filling", user_id: 9, image_url: "https://res.cloudinary.com/dbzsxlcft/image/upload/v1616613586/bm5awggd9uhlosbucnz9.png", portion_size: "1 9 inch round pie", featured: true},
+  {name: "Spinach and Ricotta Gnudi", price: "12.0", description: "Gnudi with tomato butter sauce", user_id: 8, image_url: "https://res.cloudinary.com/dbzsxlcft/image/upload/v1616613841/pd74jrr77uuylmb3ttl4.png", portion_size: "24 oz container", featured: true},
+  {name: "Peking Duck", price: "17.0", description: "", user_id: 12, image_url: "https://res.cloudinary.com/dbzsxlcft/image/upload/v1616613995/xjgpw0d3ycl9r1oj7mot.jpg", portion_size: "1 duck and wrappers", featured: true},
+  {name: "Chow mein", price: "7.5", description: "", user_id: 12, image_url: "https://res.cloudinary.com/dbzsxlcft/image/upload/v1616614046/djizadtgth7cq9dme1tz.jpg", portion_size: "", featured: false}
+])
+UserCuisine.create!([
+  {cuisine_id: 1, user_id: 1},
+  {cuisine_id: 2, user_id: 1},
+  {cuisine_id: 5, user_id: 3},
+  {cuisine_id: 7, user_id: 3},
+  {cuisine_id: 3, user_id: 4},
+  {cuisine_id: 10, user_id: 6},
+  {cuisine_id: 9, user_id: 10},
+  {cuisine_id: 6, user_id: 13},
+  {cuisine_id: 2, user_id: 9},
+  {cuisine_id: 8, user_id: 8},
+  {cuisine_id: 4, user_id: 12}
+])
+CartedDish.create!([
+  {dish_id: 18, quantity: 1, status: "purchased", order_id: 1, user_id: 2},
+  {dish_id: 2, quantity: 0, status: "removed", order_id: nil, user_id: 2},
+  {dish_id: 2, quantity: 1, status: "purchased", order_id: 2, user_id: 2},
+  {dish_id: 1, quantity: 1, status: "purchased", order_id: 2, user_id: 2},
+  {dish_id: 7, quantity: 2, status: "purchased", order_id: 2, user_id: 2},
+  {dish_id: 12, quantity: 1, status: "purchased", order_id: 3, user_id: 2},
+  {dish_id: 4, quantity: 1, status: "purchased", order_id: 3, user_id: 2},
+  {dish_id: 14, quantity: 0, status: "removed", order_id: nil, user_id: 2},
+  {dish_id: 14, quantity: 0, status: "removed", order_id: nil, user_id: 2},
+  {dish_id: 16, quantity: 0, status: "removed", order_id: nil, user_id: 2},
+  {dish_id: 3, quantity: 0, status: "removed", order_id: nil, user_id: 2},
+  {dish_id: 18, quantity: 0, status: "removed", order_id: nil, user_id: 2}
+])
+Order.create!([
+  {user_id: 2, subtotal: "7.5", delivery: false, ready_time: "2021-03-25 18:00:00", status: "received", chef_id: 13},
+  {user_id: 2, subtotal: "11.21", delivery: false, ready_time: "2021-03-24 13:00:00", status: "received", chef_id: 1},
+  {user_id: 2, subtotal: "15.2", delivery: true, ready_time: "2021-03-26 16:00:00", status: "received", chef_id: 3}
 ])

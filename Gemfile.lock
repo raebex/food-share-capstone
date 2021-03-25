@@ -82,6 +82,7 @@ GEM
       multipart-post (>= 1.2, < 3)
       ruby2_keywords
     faraday-net_http (1.0.1)
+    ffaker (2.18.0)
     ffi (1.14.2)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
@@ -189,6 +190,9 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    seed_dump (3.3.1)
+      activerecord (>= 4)
+      activesupport (>= 4)
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -226,6 +230,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   cloudinary
+  ffaker
   http
   jb
   jbuilder (~> 2.7)
@@ -238,6 +243,7 @@ DEPENDENCIES
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.2, >= 6.1.2.1)
   sass-rails (>= 6)
+  seed_dump
   stripe
   twilio-ruby
   tzinfo-data
